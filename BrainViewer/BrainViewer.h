@@ -78,6 +78,7 @@
 #include <QComboBox>
 #include "vtkMyDICOMImageReader.h"
 #include "Register.h"
+#include "niiviewer.h"
 
 class DicomDataBase;
 VTK_MODULE_INIT(vtkRenderingFreeType)
@@ -95,6 +96,9 @@ public:
 	BrainViewer(QWidget *parent = Q_NULLPTR);
 
 	Register * m_Reg_Window;
+
+	NiiViewer * m_Nii_Window;
+
 	enum CURSOR		
 	{	POINTRE,		//默认指针
 		ZOOM,			//缩放
@@ -200,6 +204,7 @@ public slots:
 	void OnOpenSeriesFolder();		//打开series目录
 	void OnOpenDicomFile();			//打开单张Dicom文件
 	void OnOpenDicomDirFile();		//打开DICOMDIR文件
+	void OnOpenNiiFile();			//打开Nii文件
 	void OnForward();				//前一张按键
 	void OnBackward();				//后一张按键
 	void OnResetToFirst();			//回到第一张

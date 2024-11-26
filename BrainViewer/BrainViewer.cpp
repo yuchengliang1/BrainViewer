@@ -1269,6 +1269,12 @@ void BrainViewer::OnSegmentImage()
 	//为了增加响应速度,初始化代码应该统一起来,这是一个尝试,以后会逐渐改成这样
  }
 
+ void BrainViewer::OnOpenNiiFile()
+ {
+	 m_Nii_Window = new NiiViewer();
+	 m_Nii_Window->show();
+ }
+
 //测试入口1
  void BrainViewer::OnTestEntrance_01()
  {

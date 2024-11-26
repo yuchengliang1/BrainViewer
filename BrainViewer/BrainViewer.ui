@@ -170,6 +170,7 @@ background-color: rgb(255, 255, 255);</string>
     <addaction name="action_OpenSeriesFolder"/>
     <addaction name="action_OpenDicomDirFile"/>
     <addaction name="action_OpenDicomFile"/>
+    <addaction name="actionNii_Open"/>
     <addaction name="separator"/>
     <addaction name="action_PreviousPatient"/>
     <addaction name="action_LatterPatient"/>
@@ -603,6 +604,21 @@ background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>配准工具</string>
+   </property>
+  </action>
+  <action name="actionNii_Open">
+   <property name="icon">
+    <iconset resource="BrainViewer.qrc">
+     <normaloff>:/BrainViewer/Resources/niifile.png</normaloff>:/BrainViewer/Resources/niifile.png</iconset>
+   </property>
+   <property name="text">
+    <string>打开nii文件</string>
+   </property>
+   <property name="toolTip">
+    <string>打开nii文件</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::TextHeuristicRole</enum>
    </property>
   </action>
  </widget>
@@ -1146,6 +1162,22 @@ background-color: rgb(255, 255, 255);</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionNii_Open</sender>
+   <signal>triggered()</signal>
+   <receiver>BrainViewerClass</receiver>
+   <slot>OnOpenNiiFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>368</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>OnOpenFile()</slot>
@@ -1170,6 +1202,7 @@ background-color: rgb(255, 255, 255);</string>
   <slot>OnTestReadDICOMDIR()</slot>
   <slot>OnOpenSeriesFolder()</slot>
   <slot>OnOpenDicomFile()</slot>
+  <slot>OnOpenNiiFile()</slot>
   <slot>OnOpenDicomDirFile()</slot>
   <slot>on_treeView_customContextMenuRequested(QPoint)</slot>
   <slot>OnSliceScrollBarValueChange(int)</slot>

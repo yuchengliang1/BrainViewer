@@ -159,6 +159,7 @@
     <ClCompile Include="ThreeD_Reconstruction.cpp" />
     <ClCompile Include="vtkBiDimensionalCallback.cpp" />
     <ClCompile Include="vtkMyDICOMImageReader.cpp" />
+    <ClCompile Include="niiviewer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="BrainViewer.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="myVtkViewer.h" />
     <QtMoc Include="Segmenter.h" />
     <QtMoc Include="Register.h" />
+    <QtMoc Include="niiviewer.h" />
     <QtMoc Include="Startup.h" />
     <ClInclude Include="vtkMyDICOMImageReader.h" />
     <QtMoc Include="DicomDir.h" />
@@ -204,6 +206,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Startup.ui" />
+  </ItemGroup>
+    <ItemGroup>
+    <QtUic Include="niiviewer.ui" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

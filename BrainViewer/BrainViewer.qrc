@@ -29,6 +29,7 @@
         <file>Resources/Avalon_start.png</file>
         <file>Resources/brainSightLogo.png</file>
         <file>Resources/brainSightStart.png</file>
+        <file>Resources/niifile.png</file>
     </qresource>
     <qresource prefix="/Black">
         <file>Resources/Black/arrowBottom.png</file>

@@ -63,6 +63,7 @@ public:
     QAction *action_WindowWL_CT_Medias;
     QAction *action_WindowWL_CT_Lungs;
     QAction *action_Registration;
+    QAction *actionNii_Open;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QVTKWidget *qvtkWidget;
@@ -241,6 +242,12 @@ public:
         QIcon icon20;
         icon20.addFile(QString::fromUtf8(":/BrainViewer/Resources/aim_128px_1207156_easyicon.net.ico"), QSize(), QIcon::Normal, QIcon::Off);
         action_Registration->setIcon(icon20);
+        actionNii_Open = new QAction(BrainViewerClass);
+        actionNii_Open->setObjectName(QString::fromUtf8("actionNii_Open"));
+        QIcon icon21;
+        icon21.addFile(QString::fromUtf8(":/BrainViewer/Resources/niifile.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionNii_Open->setIcon(icon21);
+        actionNii_Open->setMenuRole(QAction::MenuRole::TextHeuristicRole);
         centralWidget = new QWidget(BrainViewerClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -335,6 +342,7 @@ public:
         menu->addAction(action_OpenSeriesFolder);
         menu->addAction(action_OpenDicomDirFile);
         menu->addAction(action_OpenDicomFile);
+        menu->addAction(actionNii_Open);
         menu->addSeparator();
         menu->addAction(action_PreviousPatient);
         menu->addAction(action_LatterPatient);
@@ -427,6 +435,7 @@ public:
         QObject::connect(action_WindowWL_CT_Lungs, SIGNAL(triggered()), BrainViewerClass, SLOT(OnWindowWL_CT_Lungs()));
         QObject::connect(action_WindowWL_Default, SIGNAL(triggered()), BrainViewerClass, SLOT(OnWindowWL_Defaut()));
         QObject::connect(action_Registration, SIGNAL(triggered()), BrainViewerClass, SLOT(OnRegistration()));
+        QObject::connect(actionNii_Open, SIGNAL(triggered()), BrainViewerClass, SLOT(OnOpenNiiFile()));
 
         QMetaObject::connectSlotsByName(BrainViewerClass);
     } // setupUi
@@ -471,6 +480,10 @@ public:
         action_WindowWL_CT_Medias->setText(QCoreApplication::translate("BrainViewerClass", "CT-\347\272\265\350\206\210", nullptr));
         action_WindowWL_CT_Lungs->setText(QCoreApplication::translate("BrainViewerClass", "CT-\350\202\272", nullptr));
         action_Registration->setText(QCoreApplication::translate("BrainViewerClass", "\351\205\215\345\207\206\345\267\245\345\205\267", nullptr));
+        actionNii_Open->setText(QCoreApplication::translate("BrainViewerClass", "\346\211\223\345\274\200nii\346\226\207\344\273\266", nullptr));
+#if QT_CONFIG(tooltip)
+        actionNii_Open->setToolTip(QCoreApplication::translate("BrainViewerClass", "\346\211\223\345\274\200nii\346\226\207\344\273\266", nullptr));
+#endif // QT_CONFIG(tooltip)
         menu->setTitle(QCoreApplication::translate("BrainViewerClass", "\346\226\207\344\273\266", nullptr));
         menu_2->setTitle(QCoreApplication::translate("BrainViewerClass", "\344\277\241\346\201\257", nullptr));
         menu_3->setTitle(QCoreApplication::translate("BrainViewerClass", "\345\267\245\345\205\267", nullptr));

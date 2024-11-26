@@ -1,4 +1,4 @@
-#include "Register.h"
+﻿#include "Register.h"
 #include <QFileDialog>
 #include <iostream>
 

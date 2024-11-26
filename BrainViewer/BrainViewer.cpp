@@ -1,4 +1,4 @@
-#include "myVtkInteractorStyleImage.h"
+﻿#include "myVtkInteractorStyleImage.h"
 #include "vtkBiDimensionalCallback.h"
 #include "DicomDir.h"
 #include "Segmenter.h"

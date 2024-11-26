@@ -272,36 +272,33 @@ public:
         BrainViewerClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BrainViewerClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1200, 17));
+        menuBar->setGeometry(QRect(0, 0, 1200, 18));
         menuBar->setAutoFillBackground(false);
-        menuBar->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);"));
+        menuBar->setStyleSheet(QString::fromUtf8("QMenuBar {\n"
+"	color: rgb(255, 255, 255);\n"
+"	background-color: rgb(0, 0, 0);\n"
+"}\n"
+""));
         menuBar->setNativeMenuBar(true);
         menu = new QMenu(menuBar);
         menu->setObjectName(QString::fromUtf8("menu"));
         menu->setAutoFillBackground(false);
-        menu->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);"));
+        menu->setStyleSheet(QString::fromUtf8(""));
         menu_2 = new QMenu(menuBar);
         menu_2->setObjectName(QString::fromUtf8("menu_2"));
-        menu_2->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);"));
+        menu_2->setStyleSheet(QString::fromUtf8(""));
         menu_3 = new QMenu(menuBar);
         menu_3->setObjectName(QString::fromUtf8("menu_3"));
-        menu_3->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);"));
+        menu_3->setStyleSheet(QString::fromUtf8(""));
         menu_4 = new QMenu(menuBar);
         menu_4->setObjectName(QString::fromUtf8("menu_4"));
-        menu_4->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);"));
+        menu_4->setStyleSheet(QString::fromUtf8(""));
         menu_5 = new QMenu(menuBar);
         menu_5->setObjectName(QString::fromUtf8("menu_5"));
-        menu_5->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);"));
+        menu_5->setStyleSheet(QString::fromUtf8(""));
         menu_WindowSizeLevel = new QMenu(menuBar);
         menu_WindowSizeLevel->setObjectName(QString::fromUtf8("menu_WindowSizeLevel"));
-        menu_WindowSizeLevel->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);\n"
-"background-color: rgb(255, 255, 255);"));
+        menu_WindowSizeLevel->setStyleSheet(QString::fromUtf8(""));
         BrainViewerClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(BrainViewerClass);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));

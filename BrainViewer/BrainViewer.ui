@@ -141,15 +141,18 @@ background-color: rgb(255, 255, 255);</string>
      <x>0</x>
      <y>0</y>
      <width>1200</width>
-     <height>17</height>
+     <height>18</height>
     </rect>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(0, 0, 0);</string>
+    <string notr="true">QMenuBar {
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 0, 0);
+}
+</string>
    </property>
    <property name="nativeMenuBar">
     <bool>true</bool>
@@ -159,8 +162,7 @@ color: rgb(0, 0, 0);</string>
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
+     <string notr="true"/>
     </property>
     <property name="title">
      <string>文件</string>
@@ -174,8 +176,7 @@ background-color: rgb(255, 255, 255);</string>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
+     <string notr="true"/>
     </property>
     <property name="title">
      <string>信息</string>
@@ -185,8 +186,7 @@ background-color: rgb(255, 255, 255);</string>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
+     <string notr="true"/>
     </property>
     <property name="title">
      <string>工具</string>
@@ -207,8 +207,7 @@ background-color: rgb(255, 255, 255);</string>
    </widget>
    <widget class="QMenu" name="menu_4">
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
+     <string notr="true"/>
     </property>
     <property name="title">
      <string>窗口</string>
@@ -217,8 +216,7 @@ background-color: rgb(255, 255, 255);</string>
    </widget>
    <widget class="QMenu" name="menu_5">
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
+     <string notr="true"/>
     </property>
     <property name="title">
      <string>测试</string>
@@ -228,8 +226,7 @@ background-color: rgb(255, 255, 255);</string>
    </widget>
    <widget class="QMenu" name="menu_WindowSizeLevel">
     <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
+     <string notr="true"/>
     </property>
     <property name="title">
      <string>窗宽窗位</string>

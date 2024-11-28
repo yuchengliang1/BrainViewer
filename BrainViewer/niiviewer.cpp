@@ -1,5 +1,6 @@
 #include "niiviewer.h"
 #include "ui_niiviewer.h"
+#include <QApplication>
 
 NiiViewer::NiiViewer(QWidget *parent)
     : QWidget(parent)

@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QOpenGLWidget>
 #include <QtWidgets/QWidget>
@@ -26,6 +27,8 @@ public:
     QOpenGLWidget *openGLWidget_2;
     QOpenGLWidget *openGLWidget_3;
     QOpenGLWidget *openGLWidget_4;
+    QWidget *gridLayoutWidget;
+    QGridLayout *gridLayout;
 
     void setupUi(QWidget *NiiViewer)
     {
@@ -50,6 +53,13 @@ public:
         openGLWidget_4 = new QOpenGLWidget(widget);
         openGLWidget_4->setObjectName(QString::fromUtf8("openGLWidget_4"));
         openGLWidget_4->setGeometry(QRect(525, 525, 450, 450));
+        gridLayoutWidget = new QWidget(NiiViewer);
+        gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
+        gridLayoutWidget->setGeometry(QRect(10, 10, 160, 80));
+        gridLayout = new QGridLayout(gridLayoutWidget);
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(6, 6, 6, 6);
 
         retranslateUi(NiiViewer);
 

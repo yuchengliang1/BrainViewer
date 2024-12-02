@@ -13,62 +13,73 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QListWidget>
-#include <QtWidgets/QOpenGLWidget>
 #include <QtWidgets/QWidget>
+#include "QVTKWidget.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_NiiViewer
 {
 public:
-    QListWidget *listWidget;
-    QWidget *widget;
-    QOpenGLWidget *openGLWidget;
-    QOpenGLWidget *openGLWidget_2;
-    QOpenGLWidget *openGLWidget_3;
-    QOpenGLWidget *openGLWidget_4;
+    QListWidget *toolBoxList;
+    QWidget *viewerWidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
+    QVTKWidget *sagittalViewPanel;
+    QVTKWidget *coronalViewPanel;
+    QVTKWidget *transverseViewPanel;
+    QVTKWidget *View3DPanel;
 
     void setupUi(QWidget *NiiViewer)
     {
         if (NiiViewer->objectName().isEmpty())
             NiiViewer->setObjectName(QString::fromUtf8("NiiViewer"));
-        NiiViewer->resize(1200, 1000);
-        listWidget = new QListWidget(NiiViewer);
-        listWidget->setObjectName(QString::fromUtf8("listWidget"));
-        listWidget->setGeometry(QRect(0, 0, 200, 1000));
-        widget = new QWidget(NiiViewer);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(200, 0, 1000, 1000));
-        openGLWidget = new QOpenGLWidget(widget);
-        openGLWidget->setObjectName(QString::fromUtf8("openGLWidget"));
-        openGLWidget->setGeometry(QRect(25, 25, 450, 450));
-        openGLWidget_2 = new QOpenGLWidget(widget);
-        openGLWidget_2->setObjectName(QString::fromUtf8("openGLWidget_2"));
-        openGLWidget_2->setGeometry(QRect(525, 25, 450, 450));
-        openGLWidget_3 = new QOpenGLWidget(widget);
-        openGLWidget_3->setObjectName(QString::fromUtf8("openGLWidget_3"));
-        openGLWidget_3->setGeometry(QRect(25, 525, 450, 450));
-        openGLWidget_4 = new QOpenGLWidget(widget);
-        openGLWidget_4->setObjectName(QString::fromUtf8("openGLWidget_4"));
-        openGLWidget_4->setGeometry(QRect(525, 525, 450, 450));
+        // NiiViewer->resize(1200, 1000);
+
+        toolBoxList = new QListWidget(NiiViewer);
+        toolBoxList->setObjectName(QString::fromUtf8("toolBoxList"));
+        toolBoxList->setFixedWidth(150);
+
         gridLayoutWidget = new QWidget(NiiViewer);
         gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(10, 10, 160, 80));
+
+        QHBoxLayout* hboxLayout = new QHBoxLayout(NiiViewer);
+        hboxLayout->addWidget(toolBoxList);
+        hboxLayout->addWidget(gridLayoutWidget);
+        hboxLayout->setStretchFactor(gridLayoutWidget, 1);
+
         gridLayout = new QGridLayout(gridLayoutWidget);
-        gridLayout->setSpacing(6);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(6, 6, 6, 6);
+        gridLayout->setContentsMargins(5, 5, 5, 5);
+
+        sagittalViewPanel = new QVTKWidget(gridLayoutWidget);
+        sagittalViewPanel->setObjectName(QString::fromUtf8("sagittalViewPanel"));
+        sagittalViewPanel->setMinimumSize(QSize(510, 490));
+        gridLayout->addWidget(sagittalViewPanel, 0, 0);
+
+        
+        coronalViewPanel = new QVTKWidget(gridLayoutWidget);
+        coronalViewPanel->setObjectName(QString::fromUtf8("coronalViewPanel"));
+        coronalViewPanel->setMinimumSize(QSize(510, 490));
+        gridLayout->addWidget(coronalViewPanel, 0, 1);
+
+        transverseViewPanel = new QVTKWidget(gridLayoutWidget);
+        transverseViewPanel->setObjectName(QString::fromUtf8("transverseViewPanel"));
+        transverseViewPanel->setMinimumSize(QSize(510, 490));
+        gridLayout->addWidget(transverseViewPanel, 1, 0);
+
+        View3DPanel = new QVTKWidget(gridLayoutWidget);
+        View3DPanel->setObjectName(QString::fromUtf8("View3DPanel"));
+        View3DPanel->setMinimumSize(QSize(510, 490));
+        gridLayout->addWidget(View3DPanel, 1, 1);
 
         retranslateUi(NiiViewer);
-
         QMetaObject::connectSlotsByName(NiiViewer);
     } // setupUi
 
     void retranslateUi(QWidget *NiiViewer)
     {
-        NiiViewer->setWindowTitle(QCoreApplication::translate("NiiViewer", "Form", nullptr));
+        NiiViewer->setWindowTitle(QCoreApplication::translate("NiiViewer", "BrainViewer", nullptr));
     } // retranslateUi
 
 };

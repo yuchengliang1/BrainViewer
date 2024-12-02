@@ -13,7 +13,10 @@
 #include "vtkRenderWindowInteractor.h"
 #include "vtkRenderer.h"
 #include "vtkStreamingDemandDrivenPipeline.h"
+#include <QDebug>
 
+
+vtkStandardNewMacro(wheelCancelInteractorStyle);
 vtkStandardNewMacro(myVtkViewer);
 
 myVtkViewer::myVtkViewer()
@@ -300,23 +303,23 @@ void myVtkViewer::UpdateOrientation()
     {
         switch (this->SliceOrientation)
         {
-        case myVtkViewer::SLICE_ORIENTATION_XY:
-            cam->SetFocalPoint(0, 0, 0);
-            cam->SetPosition(0, 0, -1); // -1 if medical ?
-            cam->SetViewUp(0, -1, 0);
-            break;
+            case myVtkViewer::SLICE_ORIENTATION_XY:
+                cam->SetFocalPoint(0, 0, 0);
+                cam->SetPosition(0, 0, -1); // -1 if medical ?
+                cam->SetViewUp(0, -1, 0);
+                break;
 
-        case myVtkViewer::SLICE_ORIENTATION_XZ:
-            cam->SetFocalPoint(0, 0, 0);
-            cam->SetPosition(0, -1, 0); // 1 if medical ?
-            cam->SetViewUp(0, 0, 1);
-            break;
+            case myVtkViewer::SLICE_ORIENTATION_XZ:
+                cam->SetFocalPoint(0, 0, 0);
+                cam->SetPosition(0, -1, 0); // 1 if medical ?
+                cam->SetViewUp(0, 0, -1);
+                break;
 
-        case myVtkViewer::SLICE_ORIENTATION_YZ:
-            cam->SetFocalPoint(0, 0, 0);
-            cam->SetPosition(1, 0, 0); // -1 if medical ?
-            cam->SetViewUp(0, 0, 1);
-            break;
+            case myVtkViewer::SLICE_ORIENTATION_YZ:
+                cam->SetFocalPoint(0, 0, 0);
+                cam->SetPosition(1, 0, 0); // -1 if medical ?
+                cam->SetViewUp(0, 0, 1);
+                break;
         }
     }
 }
@@ -347,20 +350,20 @@ void myVtkViewer::UpdateDisplayExtent()
 
     switch (this->SliceOrientation)
     {
-    case myVtkViewer::SLICE_ORIENTATION_XY:
-        this->ImageActor->SetDisplayExtent(
-            w_ext[0], w_ext[1], w_ext[2], w_ext[3], this->Slice, this->Slice);
-        break;
+        case myVtkViewer::SLICE_ORIENTATION_XY:
+            this->ImageActor->SetDisplayExtent(
+                w_ext[0], w_ext[1], w_ext[2], w_ext[3], this->Slice, this->Slice);
+            break;
 
-    case myVtkViewer::SLICE_ORIENTATION_XZ:
-        this->ImageActor->SetDisplayExtent(
-            w_ext[0], w_ext[1], this->Slice, this->Slice, w_ext[4], w_ext[5]);
-        break;
+        case myVtkViewer::SLICE_ORIENTATION_XZ:
+            this->ImageActor->SetDisplayExtent(
+                w_ext[0], w_ext[1], this->Slice, this->Slice, w_ext[4], w_ext[5]);
+            break;
 
-    case myVtkViewer::SLICE_ORIENTATION_YZ:
-        this->ImageActor->SetDisplayExtent(
-            this->Slice, this->Slice, w_ext[2], w_ext[3], w_ext[4], w_ext[5]);
-        break;
+        case myVtkViewer::SLICE_ORIENTATION_YZ:
+            this->ImageActor->SetDisplayExtent(
+                this->Slice, this->Slice, w_ext[2], w_ext[3], w_ext[4], w_ext[5]);
+            break;
     }
 
     if (this->Renderer)
@@ -660,3 +663,6 @@ void myVtkViewer::SetInputData(vtkImageData* in)
     this->WindowLevel->SetInputData(in);
     this->UpdateDisplayExtent();
 }
+
+void wheelCancelInteractorStyle::OnMouseWheelForward(){}
+void wheelCancelInteractorStyle::OnMouseWheelBackward(){}

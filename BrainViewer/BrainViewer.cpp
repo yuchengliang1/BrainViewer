@@ -1271,8 +1271,17 @@ void BrainViewer::OnSegmentImage()
 
  void BrainViewer::OnOpenNiiFile()
  {
-	 m_Nii_Window = new NiiViewer();
-	 m_Nii_Window->show();
+	 QString fileName = QFileDialog::getOpenFileName(this, QStringLiteral("选择图像"), NULL, tr("*.*"));
+	 if (fileName.isEmpty())
+	 {
+		 QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("请选择文件图片!"));
+	 }
+	 else
+	 {
+		m_Nii_Window = new NiiViewer();
+		m_Nii_Window->show();
+		m_Nii_Window->initialize(fileName);
+	 }
  }
 
 //测试入口1

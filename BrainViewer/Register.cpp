@@ -25,48 +25,6 @@
 #include <QMessageBox>
 #include <vtkXMLImageDataWriter.h>
 
-void wheelCancelInteractorStyle::OnMouseWheelForward()
-{
-}
-void wheelCancelInteractorStyle::OnMouseWheelBackward()
-{
-}
-vtkStandardNewMacro(wheelCancelInteractorStyle);
-
-class vtkImageInteractionCallback : public vtkCommand
-{
-public:
-	static vtkImageInteractionCallback* New() { return new vtkImageInteractionCallback; }
-
-	vtkImageInteractionCallback()
-	{
-		this->Viewer = nullptr;
-	}
-
-	void SetImageViewer(myVtkViewer* viewer) { this->Viewer = viewer; }
-	myVtkViewer* GetImageViewer() { return this->Viewer; }
-
-	void Execute(vtkObject*, unsigned long event, void*) override
-	{
-		if (event == vtkCommand::MouseWheelForwardEvent)
-		{
-			myVtkViewer* viewer = this->GetImageViewer();
-			auto sliceIndex = viewer->GetSlice();
-			viewer->SetSlice(sliceIndex + 1);
-			viewer->Render();
-		}
-		else if (event == vtkCommand::MouseWheelBackwardEvent)
-		{
-			myVtkViewer* viewer = this->GetImageViewer();
-			auto sliceIndex = viewer->GetSlice();
-			viewer->SetSlice(sliceIndex - 1);
-			viewer->Render();
-		}
-	}
-
-private:
-	myVtkViewer* Viewer;
-};
 
 /*
  * 构造

@@ -27,6 +27,16 @@
 #include <vtkTextProperty.h>
 #include <vtkTextMapper.h>
 
+class wheelCancelInteractorStyle : public vtkInteractorStyleImage
+{
+public:
+    static wheelCancelInteractorStyle* New();
+    vtkTypeMacro(wheelCancelInteractorStyle, vtkInteractorStyleImage);
+protected:
+    virtual void OnMouseWheelForward()override;
+    virtual void OnMouseWheelBackward()override;
+};
+
 class myVtkViewer : public vtkObject
 {
 public:
@@ -112,4 +122,40 @@ protected:
 private:
     myVtkViewer(const myVtkViewer&) = delete;
     void operator=(const myVtkViewer&) = delete;
+};
+
+
+class vtkImageInteractionCallback : public vtkCommand
+{
+public:
+    static vtkImageInteractionCallback* New() { return new vtkImageInteractionCallback; }
+
+    vtkImageInteractionCallback()
+    {
+        this->Viewer = nullptr;
+    }
+
+    void SetImageViewer(myVtkViewer* viewer) { this->Viewer = viewer; }
+    myVtkViewer* GetImageViewer() { return this->Viewer; }
+
+    void Execute(vtkObject*, unsigned long event, void*) override
+    {
+        if (event == vtkCommand::MouseWheelForwardEvent)
+        {
+            myVtkViewer* viewer = this->GetImageViewer();
+            auto sliceIndex = viewer->GetSlice();
+            viewer->SetSlice(sliceIndex + 1);
+            viewer->Render();
+        }
+        else if (event == vtkCommand::MouseWheelBackwardEvent)
+        {
+            myVtkViewer* viewer = this->GetImageViewer();
+            auto sliceIndex = viewer->GetSlice();
+            viewer->SetSlice(sliceIndex - 1);
+            viewer->Render();
+        }
+    }
+
+private:
+    myVtkViewer* Viewer;
 };

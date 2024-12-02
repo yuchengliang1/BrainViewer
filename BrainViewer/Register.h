@@ -34,16 +34,6 @@ enum RegistrationFunc
 	RegFunc_Multi
 };
 
-class wheelCancelInteractorStyle : public vtkInteractorStyleImage
-{
-public:
-	static wheelCancelInteractorStyle* New();
-	vtkTypeMacro(wheelCancelInteractorStyle, vtkInteractorStyleImage);
-protected:
-	virtual void OnMouseWheelForward()override;
-	virtual void OnMouseWheelBackward()override;
-};
-
 class Register : public QWidget
 {
 	Q_OBJECT

@@ -26,6 +26,7 @@
 #include <vtkActor2D.h>
 #include <vtkTextProperty.h>
 #include <vtkTextMapper.h>
+#include <qdebug.h>
 
 class wheelCancelInteractorStyle : public vtkInteractorStyleImage
 {
@@ -94,6 +95,8 @@ public:
     virtual void SetRenderWindow(vtkRenderWindow* arg);
     virtual void SetRenderer(vtkRenderer* arg);
     virtual void SetupInteractor(vtkRenderWindowInteractor*);
+    virtual void setCameraScale(double scale);
+    virtual void SetAutoSlice();
 protected:
     myVtkViewer();
     ~myVtkViewer() override;
@@ -122,6 +125,7 @@ protected:
 private:
     myVtkViewer(const myVtkViewer&) = delete;
     void operator=(const myVtkViewer&) = delete;
+    double m_scale = 1;
 };
 
 

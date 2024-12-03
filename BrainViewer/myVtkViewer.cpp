@@ -29,7 +29,6 @@ myVtkViewer::myVtkViewer()
     this->InteractorStyle = nullptr;
 
     this->Slice = 0;
-    this->FirstRender = 1;
     this->SliceOrientation = myVtkViewer::SLICE_ORIENTATION_XY;
 
     vtkRenderWindow* renwin = vtkRenderWindow::New();
@@ -143,6 +142,9 @@ void myVtkViewer::SetRenderWindow(vtkRenderWindow* arg)
     }
 
     this->InstallPipeline();
+}
+void myVtkViewer::SetAutoSlice() {
+    SetSlice((GetSliceMin() + GetSliceMax()) / 2);
 }
 
 void myVtkViewer::SetRenderer(vtkRenderer* arg)
@@ -286,9 +288,8 @@ void myVtkViewer::SetSliceOrientation(int orientation)
 
     if (this->Renderer && this->GetInput())
     {
-        double scale = this->Renderer->GetActiveCamera()->GetParallelScale();
         this->Renderer->ResetCamera();
-        this->Renderer->GetActiveCamera()->SetParallelScale(scale);
+        this->Renderer->GetActiveCamera()->SetParallelScale(m_scale);
     }
 
     this->Render();
@@ -296,11 +297,10 @@ void myVtkViewer::SetSliceOrientation(int orientation)
 
 void myVtkViewer::UpdateOrientation()
 {
-    // Set the camera position
-
     vtkCamera* cam = this->Renderer ? this->Renderer->GetActiveCamera() : nullptr;
     if (cam)
     {
+        // cam->SetParallelProjection(1);
         switch (this->SliceOrientation)
         {
             case myVtkViewer::SLICE_ORIENTATION_XY:
@@ -311,14 +311,14 @@ void myVtkViewer::UpdateOrientation()
 
             case myVtkViewer::SLICE_ORIENTATION_XZ:
                 cam->SetFocalPoint(0, 0, 0);
-                cam->SetPosition(0, -1, 0); // 1 if medical ?
+                cam->SetPosition(0, -100, 0); // 1 if medical ?
                 cam->SetViewUp(0, 0, -1);
                 break;
 
             case myVtkViewer::SLICE_ORIENTATION_YZ:
                 cam->SetFocalPoint(0, 0, 0);
-                cam->SetPosition(1, 0, 0); // -1 if medical ?
-                cam->SetViewUp(0, 0, 1);
+                cam->SetPosition(-100, 0, 0); // -1 if medical ?
+                cam->SetViewUp(0, 0, -1);
                 break;
         }
     }
@@ -365,31 +365,41 @@ void myVtkViewer::UpdateDisplayExtent()
                 this->Slice, this->Slice, w_ext[2], w_ext[3], w_ext[4], w_ext[5]);
             break;
     }
-
     if (this->Renderer)
     {
-        if (this->InteractorStyle && this->InteractorStyle->GetAutoAdjustCameraClippingRange())
-        {
-            this->Renderer->ResetCameraClippingRange();
-        }
-        else
-        {
-            vtkCamera* cam = this->Renderer->GetActiveCamera();
-            if (cam)
-            {
-                double bounds[6];
-                this->ImageActor->GetBounds(bounds);
-                double spos = bounds[this->SliceOrientation * 2];
-                double cpos = cam->GetPosition()[this->SliceOrientation];
-                double range = fabs(spos - cpos);
-                double* spacing = outInfo->Get(vtkDataObject::SPACING());
-                double avg_spacing = (spacing[0] + spacing[1] + spacing[2]) / 3.0;
-                cam->SetClippingRange(range - avg_spacing * 3.0, range + avg_spacing * 3.0);
-            }
-        }
+        vtkCamera* cam = this->Renderer->GetActiveCamera();
+        cam->SetParallelProjection(1);
+        cam->SetParallelScale(m_scale);
     }
+
+    //if (this->Renderer)
+    //{
+    //    if (this->InteractorStyle && this->InteractorStyle->GetAutoAdjustCameraClippingRange())
+    //    {
+    //        this->Renderer->ResetCameraClippingRange();
+    //    }
+    //    else
+    //    {
+    //        vtkCamera* cam = this->Renderer->GetActiveCamera();
+    //        if (cam)
+    //        {
+    //            double bounds[6];
+    //            this->ImageActor->GetBounds(bounds);
+    //            double spos = bounds[this->SliceOrientation * 2];
+    //            double cpos = cam->GetPosition()[this->SliceOrientation];
+    //            double range = fabs(spos - cpos);
+    //            double* spacing = outInfo->Get(vtkDataObject::SPACING());
+    //            double avg_spacing = (spacing[0] + spacing[1] + spacing[2]) / 3.0;
+    //            cam->SetClippingRange(range - avg_spacing * 3.0, range + avg_spacing * 3.0);
+    //        }
+    //    }
+    //}
 }
 
+void myVtkViewer::setCameraScale(double scale)
+{
+    m_scale = scale;
+}
 //------------------------------------------------------------------------------
 void myVtkViewer::SetPosition(int x, int y)
 {
@@ -607,51 +617,13 @@ void myVtkViewer::UnInstallPipeline()
 
 void myVtkViewer::Render()
 {
-    if (this->FirstRender)
+
+    if (this->Renderer)
     {
-        // Initialize the size if not set yet
-
-        vtkAlgorithm* input = this->GetInputAlgorithm();
-        if (input)
-        {
-            input->UpdateInformation();
-            int* w_ext =
-                this->GetInputInformation()->Get(vtkStreamingDemandDrivenPipeline::WHOLE_EXTENT());
-            int xs = 0, ys = 0;
-
-            switch (this->SliceOrientation)
-            {
-            case myVtkViewer::SLICE_ORIENTATION_XY:
-            default:
-                xs = w_ext[1] - w_ext[0] + 1;
-                ys = w_ext[3] - w_ext[2] + 1;
-                break;
-
-            case myVtkViewer::SLICE_ORIENTATION_XZ:
-                xs = w_ext[1] - w_ext[0] + 1;
-                ys = w_ext[5] - w_ext[4] + 1;
-                break;
-
-            case myVtkViewer::SLICE_ORIENTATION_YZ:
-                xs = w_ext[3] - w_ext[2] + 1;
-                ys = w_ext[5] - w_ext[4] + 1;
-                break;
-            }
-
-            // if it would be smaller than 150 by 100 then limit to 150 by 100
-            if (this->RenderWindow->GetSize()[0] == 0)
-            {
-                this->RenderWindow->SetSize(xs < 150 ? 150 : xs, ys < 100 ? 100 : ys);
-            }
-
-            if (this->Renderer)
-            {
-                this->Renderer->ResetCamera();
-                this->Renderer->GetActiveCamera()->SetParallelScale(xs < 150 ? 75 : (xs - 1) / 2.0);
-            }
-            this->FirstRender = 0;
-        }
+        this->Renderer->ResetCamera();
+        this->Renderer->GetActiveCamera()->SetParallelScale(m_scale);
     }
+    
     if (this->GetInput())
     {
         this->RenderWindow->Render();

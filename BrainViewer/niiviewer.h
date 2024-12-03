@@ -25,8 +25,14 @@ class NiiViewer : public QWidget
 public:
     explicit NiiViewer(QWidget *parent = nullptr);
     ~NiiViewer();
+    enum
+    {
+        SLICE_ORIENTATION_YZ = 0,
+        SLICE_ORIENTATION_XZ = 1,
+        SLICE_ORIENTATION_XY = 2
+    };
     void initialize(QString fileName);
-    void ComputeOptimalZoom(int);
+    double ComputeOptimalZoom(int);
 
 private:
     Ui::NiiViewer *ui;
@@ -41,7 +47,7 @@ private:
     vtkSmartPointer<wheelCancelInteractorStyle> style[4];
     ConnectorType::Pointer connector;
     vtkSmartPointer<myVtkViewer> viewer[4];
-    vtkImageData* m_vtkImage_data;
+    vtkSmartPointer<vtkImageData> m_vtkImage_data[4];
     double m_optimal_zoom;
 };
 

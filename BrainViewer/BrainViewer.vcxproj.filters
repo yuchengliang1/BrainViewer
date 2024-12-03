@@ -90,6 +90,9 @@
     <ClCompile Include="myVtkViewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="niiviewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="BrainViewer.h">
@@ -134,6 +137,9 @@
     <QtUic Include="Startup.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtMoc Include="niiviewer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myVtkInteractorStyleImage.h">

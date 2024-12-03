@@ -13,14 +13,15 @@ NiiViewer::NiiViewer(QWidget *parent)
     view3DWidget = ui->View3DPanel;
 
 	imageReader = FileReader::New();
+	imageReader2 = FileReader::New();
 	connector = ConnectorType::New();
+	connector2 = ConnectorType::New();
 
 	for (int i = 0; i < 4; i++)
 	{
 		actor[i] = vtkSmartPointer<vtkImageActor>::New();
 		renderer[i] = vtkSmartPointer<vtkRenderer>::New();
 		renderWindowInteractor[i] = vtkSmartPointer<vtkRenderWindowInteractor>::New();
-		style[i] = vtkSmartPointer<wheelCancelInteractorStyle>::New();
 		viewer[i] = vtkSmartPointer<myVtkViewer>::New();
 		m_vtkImage_data[i] = vtkSmartPointer<vtkImageData>::New();
 	}
@@ -35,14 +36,15 @@ void NiiViewer::initialize(QString fileName) {
     imageReader->SetFileName(fileName.toStdString());
     imageReader->Update();
 
-
 	connector->SetInput(imageReader->GetOutput());
 	connector->Update();
 	vtkImageData* img = connector->GetOutput();
 
-	for (int i = 0; i < 4; i++) {
-		m_vtkImage_data[i]->DeepCopy(img);
-	}
+	//for (int i = 0; i < 4; i++) {
+	//	m_vtkImage_data[i]->DeepCopy(img);
+	//}
+	m_vtkImage_data[0]->DeepCopy(img);
+	m_vtkImage_data[1]->DeepCopy(img);
 
 	vtkSmartPointer<vtkImageHistogramStatistics> stats = vtkSmartPointer<vtkImageHistogramStatistics>::New();
 	stats->SetAutoRangePercentiles(0.1, 99.9);
@@ -59,17 +61,12 @@ void NiiViewer::initialize(QString fileName) {
 	viewer[0]->SetSliceOrientationToXY();
 	viewer[0]->SetColorLevel(level);
 	viewer[0]->SetColorWindow(window);
-	viewer[0]->SetRenderer(renderer[1]);
+	viewer[0]->SetRenderer(renderer[0]);
 	viewer[0]->SetRenderWindow(transverseWidget->GetRenderWindow());
 	viewer[0]->Render();
 	viewer[0]->SetAutoSlice();
-	vtkSmartPointer<vtkImageInteractionCallback> callback = vtkSmartPointer<vtkImageInteractionCallback>::New();
-	callback->SetImageViewer(viewer[0]);
-	renderWindowInteractor[0]->AddObserver(vtkCommand::MouseWheelForwardEvent, callback);
-	renderWindowInteractor[0]->AddObserver(vtkCommand::MouseWheelBackwardEvent, callback);
-	renderWindowInteractor[0]->SetInteractorStyle(style[0]);
 	viewer[0]->SetupInteractor(renderWindowInteractor[0]);
-
+	renderWindowInteractor[0]->Start();
 	
 	viewer[1]->SetInputData(m_vtkImage_data[1]);
 	viewer[1]->setCameraScale(ComputeOptimalZoom(NiiViewer::SLICE_ORIENTATION_YZ) * 75);
@@ -80,11 +77,6 @@ void NiiViewer::initialize(QString fileName) {
 	viewer[1]->SetRenderWindow(saggitalWidget->GetRenderWindow());
 	viewer[1]->Render();
 	viewer[1]->SetAutoSlice();
-	vtkSmartPointer<vtkImageInteractionCallback> callback1 = vtkSmartPointer<vtkImageInteractionCallback>::New();
-	callback1->SetImageViewer(viewer[1]);
-	renderWindowInteractor[1]->AddObserver(vtkCommand::MouseWheelForwardEvent, callback1);
-	renderWindowInteractor[1]->AddObserver(vtkCommand::MouseWheelBackwardEvent, callback1);
-	renderWindowInteractor[1]->SetInteractorStyle(style[1]);
 	viewer[1]->SetupInteractor(renderWindowInteractor[1]);
 
 	//viewer[2]->SetInputData(connector->GetOutput());
@@ -103,7 +95,7 @@ void NiiViewer::initialize(QString fileName) {
 	//renderWindowInteractor[2]->SetInteractorStyle(style[2]);
 	//viewer[2]->SetupInteractor(renderWindowInteractor[2]);
 
-	renderWindowInteractor[0]->Start();
+	
 	renderWindowInteractor[1]->Start();
 	//renderWindowInteractor[2]->Start();
 

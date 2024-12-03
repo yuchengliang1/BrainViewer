@@ -37,6 +37,7 @@ public:
 private:
     Ui::NiiViewer *ui;
     FileReader::Pointer imageReader;
+    FileReader::Pointer imageReader2;
     QVTKWidget* saggitalWidget;
     QVTKWidget* coronalWidget;
     QVTKWidget* transverseWidget;
@@ -44,8 +45,8 @@ private:
     vtkSmartPointer<vtkImageActor> actor[4];
     vtkSmartPointer<vtkRenderer> renderer[4];
     vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor[4];
-    vtkSmartPointer<wheelCancelInteractorStyle> style[4];
     ConnectorType::Pointer connector;
+    ConnectorType::Pointer connector2;
     vtkSmartPointer<myVtkViewer> viewer[4];
     vtkSmartPointer<vtkImageData> m_vtkImage_data[4];
     double m_optimal_zoom;

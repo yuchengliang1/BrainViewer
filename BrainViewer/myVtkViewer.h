@@ -134,32 +134,29 @@ class vtkImageInteractionCallback : public vtkCommand
 public:
     static vtkImageInteractionCallback* New() { return new vtkImageInteractionCallback; }
 
-    vtkImageInteractionCallback()
+    void Execute(vtkObject* caller, unsigned long event, void* vtkNotUsed(callData)) override
     {
-        this->Viewer = nullptr;
-    }
+        if (this->Viewer->GetInput() == nullptr)
+        {
+            return;
+        }
 
-    void SetImageViewer(myVtkViewer* viewer) { this->Viewer = viewer; }
-    myVtkViewer* GetImageViewer() { return this->Viewer; }
-
-    void Execute(vtkObject*, unsigned long event, void*) override
-    {
         if (event == vtkCommand::MouseWheelForwardEvent)
         {
-            myVtkViewer* viewer = this->GetImageViewer();
-            auto sliceIndex = viewer->GetSlice();
-            viewer->SetSlice(sliceIndex + 1);
-            viewer->Render();
+            auto sliceIndex = this->Viewer->GetSlice();
+            this->Viewer->SetSlice(sliceIndex + 1);
+            this->Viewer->Render();
+            return;
         }
-        else if (event == vtkCommand::MouseWheelBackwardEvent)
-        {
-            myVtkViewer* viewer = this->GetImageViewer();
-            auto sliceIndex = viewer->GetSlice();
-            viewer->SetSlice(sliceIndex - 1);
-            viewer->Render();
-        }
-    }
 
-private:
+        if (event == vtkCommand::MouseWheelBackwardEvent)
+        {
+            auto sliceIndex = this->Viewer->GetSlice();
+            this->Viewer->SetSlice(sliceIndex - 1);
+            this->Viewer->Render();
+            return;
+        }
+        this->Viewer->Render();
+    }
     myVtkViewer* Viewer;
 };

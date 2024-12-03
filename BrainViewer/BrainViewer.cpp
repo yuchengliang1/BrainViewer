@@ -1279,8 +1279,8 @@ void BrainViewer::OnSegmentImage()
 	 else
 	 {
 		m_Nii_Window = new NiiViewer();
-		m_Nii_Window->show();
 		m_Nii_Window->initialize(fileName);
+		m_Nii_Window->show();
 	 }
  }
 

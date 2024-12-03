@@ -564,18 +564,20 @@ void myVtkViewer::InstallPipeline()
 
     if (this->Interactor)
     {
-        //if (!this->InteractorStyle)
-        //{
-        //    this->InteractorStyle = vtkInteractorStyleImage::New();
-        //    myVtkViewerCallback* cbk = myVtkViewerCallback::New();
-        //    cbk->IV = this;
-        //    this->InteractorStyle->AddObserver(vtkCommand::WindowLevelEvent, cbk);
-        //    this->InteractorStyle->AddObserver(vtkCommand::StartWindowLevelEvent, cbk);
-        //    this->InteractorStyle->AddObserver(vtkCommand::ResetWindowLevelEvent, cbk);
-        //    cbk->Delete();
-        //}
+        if (!this->InteractorStyle)
+        {
+            this->InteractorStyle = wheelCancelInteractorStyle::New();
+            vtkImageInteractionCallback* cbk = vtkImageInteractionCallback::New();
+            cbk->Viewer = this;
+            this->InteractorStyle->AddObserver(vtkCommand::MouseWheelForwardEvent, cbk);
+            this->InteractorStyle->AddObserver(vtkCommand::MouseWheelBackwardEvent, cbk);
+            //this->InteractorStyle->AddObserver(vtkCommand::WindowLevelEvent, cbk);
+            //this->InteractorStyle->AddObserver(vtkCommand::StartWindowLevelEvent, cbk);
+            //this->InteractorStyle->AddObserver(vtkCommand::ResetWindowLevelEvent, cbk);
+            cbk->Delete();
+            this->Interactor->SetInteractorStyle(this->InteractorStyle);
+        }
 
-        // this->Interactor->SetInteractorStyle(this->InteractorStyle);
         this->Interactor->SetRenderWindow(this->RenderWindow);
     }
 

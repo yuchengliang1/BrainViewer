@@ -51,27 +51,7 @@ Register::Register(QWidget *parent)
 	fixedImageReader = FixedImageReaderType::New();
 	movingImageReader = MovingImageReaderType::New();
 	defaultImageReader= FixedImageReaderType::New();
-	/*
-	 * 加载一张默认图片刷掉白屏
-	 */
 
-	//defaultImageReader->SetFileName("./Resources/default.png");
-	//for(int i=0;i<4;i++)
-	//{
-	//	connector[i]->SetInput(defaultImageReader->GetOutput());
-	//	connector[i]->Update();
-	//	actor[i]->GetMapper()->SetInputData(connector[i]->GetOutput());
-	//	renderer[i]->AddActor(actor[i]);
-	//	m_output_widgets[i]->GetRenderWindow()->AddRenderer(renderer[i]);
-	//	renderWindowInteractor[i]->SetRenderWindow(m_output_widgets[i]->GetRenderWindow());
-	//	renderWindowInteractor[i]->SetInteractorStyle(style[i]);
-	//	renderWindowInteractor[i]->Initialize();
-	//	m_output_widgets[i]->GetRenderWindow()->Render();
-	//}
-	//renderWindowInteractor[0]->Start();
-	//renderWindowInteractor[1]->Start();
-	//renderWindowInteractor[2]->Start();
-	//renderWindowInteractor[3]->Start();
 }
 /*
  * 析构
@@ -261,11 +241,11 @@ void Register::AffineTransformReg(FixedImageReaderType::Pointer _fixedImageReade
 		viewer[i]->Render();
 
 		// renderWindowInteractor[0]->SetRenderWindow(m_output_widgets[0]->GetRenderWindow());
-		vtkSmartPointer<vtkImageInteractionCallback> callback = vtkSmartPointer<vtkImageInteractionCallback>::New();
-		callback->SetImageViewer(viewer[i]);
+		//vtkSmartPointer<vtkImageInteractionCallback> callback = vtkSmartPointer<vtkImageInteractionCallback>::New();
+		//callback->SetImageViewer(viewer[i]);
 
-		renderWindowInteractor[i]->AddObserver(vtkCommand::MouseWheelForwardEvent, callback);
-		renderWindowInteractor[i]->AddObserver(vtkCommand::MouseWheelBackwardEvent, callback);
+		//renderWindowInteractor[i]->AddObserver(vtkCommand::MouseWheelForwardEvent, callback);
+		//renderWindowInteractor[i]->AddObserver(vtkCommand::MouseWheelBackwardEvent, callback);
 
 		renderWindowInteractor[i]->SetInteractorStyle(style[i]);
 		viewer[i]->SetupInteractor(renderWindowInteractor[i]);
@@ -326,11 +306,11 @@ void Register::updateOutputImage()
 		viewer[i]->Render();
 
 		// renderWindowInteractor[0]->SetRenderWindow(m_output_widgets[0]->GetRenderWindow());
-		vtkSmartPointer<vtkImageInteractionCallback> callback = vtkSmartPointer<vtkImageInteractionCallback>::New();
-		callback->SetImageViewer(viewer[i]);
+		//vtkSmartPointer<vtkImageInteractionCallback> callback = vtkSmartPointer<vtkImageInteractionCallback>::New();
+		//callback->SetImageViewer(viewer[i]);
 
-		renderWindowInteractor[i]->AddObserver(vtkCommand::MouseWheelForwardEvent, callback);
-		renderWindowInteractor[i]->AddObserver(vtkCommand::MouseWheelBackwardEvent, callback);
+		//renderWindowInteractor[i]->AddObserver(vtkCommand::MouseWheelForwardEvent, callback);
+		//renderWindowInteractor[i]->AddObserver(vtkCommand::MouseWheelBackwardEvent, callback);
 
 		renderWindowInteractor[i]->SetInteractorStyle(style[i]);
 		viewer[i]->SetupInteractor(renderWindowInteractor[i]);
@@ -394,11 +374,11 @@ void Register::OnSelectImageFix()
 			viewer[0]->Render();
 
 			// renderWindowInteractor[0]->SetRenderWindow(m_output_widgets[0]->GetRenderWindow());
-			vtkSmartPointer<vtkImageInteractionCallback> callback = vtkSmartPointer<vtkImageInteractionCallback>::New();
-			callback->SetImageViewer(viewer[0]);
+			//vtkSmartPointer<vtkImageInteractionCallback> callback = vtkSmartPointer<vtkImageInteractionCallback>::New();
+			//callback->SetImageViewer(viewer[0]);
 
-			renderWindowInteractor[0]->AddObserver(vtkCommand::MouseWheelForwardEvent, callback);
-			renderWindowInteractor[0]->AddObserver(vtkCommand::MouseWheelBackwardEvent, callback);
+			//renderWindowInteractor[0]->AddObserver(vtkCommand::MouseWheelForwardEvent, callback);
+			//renderWindowInteractor[0]->AddObserver(vtkCommand::MouseWheelBackwardEvent, callback);
 
 			renderWindowInteractor[0]->SetInteractorStyle(style[0]);
 			viewer[0]->SetupInteractor(renderWindowInteractor[0]);
@@ -446,11 +426,11 @@ void Register::OnSelectImageMove()
 			viewer[1]->Render();
 
 			// renderWindowInteractor[0]->SetRenderWindow(m_output_widgets[0]->GetRenderWindow());
-			vtkSmartPointer<vtkImageInteractionCallback> callback = vtkSmartPointer<vtkImageInteractionCallback>::New();
-			callback->SetImageViewer(viewer[1]);
+			//vtkSmartPointer<vtkImageInteractionCallback> callback = vtkSmartPointer<vtkImageInteractionCallback>::New();
+			//callback->SetImageViewer(viewer[1]);
 
-			renderWindowInteractor[1]->AddObserver(vtkCommand::MouseWheelForwardEvent, callback);
-			renderWindowInteractor[1]->AddObserver(vtkCommand::MouseWheelBackwardEvent, callback);
+			//renderWindowInteractor[1]->AddObserver(vtkCommand::MouseWheelForwardEvent, callback);
+			//renderWindowInteractor[1]->AddObserver(vtkCommand::MouseWheelBackwardEvent, callback);
 
 			renderWindowInteractor[1]->SetInteractorStyle(style[1]);
 			viewer[1]->SetupInteractor(renderWindowInteractor[1]);

@@ -10,6 +10,10 @@
 #include <QVTKWidget.h>
 #include <vtkImageReslice.h>
 #include <vtkVector.h>
+#include "ui_transformslider.h"
+#include <qlistwidget.h>
+#include <qtablewidget.h>
+#include <qheaderview.h>
 
 namespace Ui {
 class NiiViewer;
@@ -37,6 +41,7 @@ public:
 private:
     Ui::NiiViewer *ui;
     FileReader::Pointer imageReader;
+    QWidget* toolBoxList;
     QVTKWidget* saggitalWidget;
     QVTKWidget* coronalWidget;
     QVTKWidget* transverseWidget;

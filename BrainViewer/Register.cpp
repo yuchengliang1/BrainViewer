@@ -275,8 +275,8 @@ void Register::AffineTransformReg(FixedImageReaderType::Pointer _fixedImageReade
 		m_output_widgets[i]->GetRenderWindow()->Render();
 	}
 	//下边的这个有阻塞,不要放在循环里
-	renderWindowInteractor[2]->Start();
-	renderWindowInteractor[3]->Start();
+	//renderWindowInteractor[2]->Start();
+	//renderWindowInteractor[3]->Start();
 }
 
 /*

@@ -21,7 +21,7 @@ QT_BEGIN_NAMESPACE
 class Ui_NiiViewer
 {
 public:
-    QListWidget *toolBoxList;
+    QWidget *toolBoxList;
     QWidget *viewerWidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
@@ -36,9 +36,9 @@ public:
             NiiViewer->setObjectName(QString::fromUtf8("NiiViewer"));
         // NiiViewer->resize(1200, 1000);
 
-        toolBoxList = new QListWidget(NiiViewer);
+        toolBoxList = new QWidget(NiiViewer);
         toolBoxList->setObjectName(QString::fromUtf8("toolBoxList"));
-        toolBoxList->setFixedWidth(150);
+        toolBoxList->setFixedWidth(450);
 
         gridLayoutWidget = new QWidget(NiiViewer);
         gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
